@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <title>Portfolio - <%= name %></title>
+</head>
+<body>
+    <%- include("partials/header", { title: project.title }) %>
+
+    <section class="text-center py-20">
+        <h1 class="text-5xl font-bold mb-6"><%= project.title %></h1>
+        <p class="text-xl max-w-2xl mx-auto text-gray-600 mb-8"><%= project.description %></p>
+               <p class="text-xl max-w-2xl mx-auto text-gray-600 mb-8"><%= project.info %></p>
+        
+        <!-- Project Tools -->
+        <div class="mb-12">
+            <h3 class="text-3xl font-semibold mb-4">Gebruikte Tools</h3>
+            <ul class="list-disc list-inside text-gray-600">
+                <% project.tools.forEach(tool => { %>
+                    <li><%= tool %></li>
+                <% }); %>
+            </ul>
+        </div>
+
+        <!-- Swiper Slideshow of images -->
+        <div class="mb-12">
+            <h3 class="text-3xl font-semibold mb-4">Screenshots</h3>
+            
+            <!-- Swiper container -->
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    <% project.images.forEach(image => { %>
+                        <div class="swiper-slide">
+                            <img src="<%= image %>" alt="Project Screenshot" class="w-full h-auto rounded-lg shadow-lg">
+                        </div>
+                    <% }); %>
+                </div>
+                
+                <!-- Pagination -->
+                <div class="swiper-pagination"></div>
+                
+                <!-- Navigation buttons -->
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+        </div>
+    </section>
+
+    <%- include("partials/footer") %>
+
+    <!-- Swiper JS -->
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script>
+        // Swiper initialization
+        const swiper = new Swiper('.swiper-container', {
+            loop: true, // Loop the images
+            autoplay: {
+                delay: 3000, // Change images every 3 seconds
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+        });
+    </script>
+</body>
+</html>
